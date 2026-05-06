@@ -9,6 +9,7 @@ import lombok.*;
 @Setter
 @ToString
 @EqualsAndHashCode
+@Data
 
 public class User {
     //Instance variables:

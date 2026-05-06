@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConfig {
-    //Instance variable:
+    //Instance variables:
+    private static DBConfig instance;
     private Connection con;
 
     //Constructor:
@@ -14,6 +15,7 @@ public class DBConfig {
             Class.forName("com.mysql.cj.jdbc.Driver"); //Loads driver onto the heap.
             String url = "jdbc:mysql://localhost:3306/joke_server"; //Define where the database is.
             this.con = DriverManager.getConnection(url, "root", "root"); //Create the actual connection to the database.
+            System.out.println("Connected to database successfully");
 
         }catch (Exception e){
             e.printStackTrace();
@@ -23,6 +25,14 @@ public class DBConfig {
     //Getter:
     public Connection getConnection(){
         return this.con;
+    }
+
+    //Global access point:
+    public static DBConfig getInstance(){
+        if(instance == null){
+            instance = new DBConfig();
+        }
+        return instance;
     }
 
     //Close method:
