@@ -16,12 +16,11 @@ public class JokeRepo implements AutoCloseable {
 
     // Create
     public Optional<Joke> createJoke(Joke joke) throws SQLException {
-        String sql = "INSERT INTO Jokes (creatorId, setup, punchline, status) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Jokes (creatorId, jokeText, status) VALUES (?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, joke.getCreatorId());
-            ps.setString(2, joke.getSetup());
-            ps.setString(3, joke.getPunchline());
-            ps.setString(4, joke.getStatus());
+            ps.setString(2, joke.getJokeText());
+            ps.setString(3, joke.getStatus());
 
             if (ps.executeUpdate() > 0) {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -45,8 +44,7 @@ public class JokeRepo implements AutoCloseable {
                     return Optional.of(Joke.builder()
                             .jokeId(rs.getInt("jokeId"))
                             .creatorId(rs.getInt("creatorId"))
-                            .setup(rs.getString("setup"))
-                            .punchline(rs.getString("punchline"))
+                            .jokeText(rs.getString("jokeText"))
                             .status(rs.getString("status"))
                             .build());
                 }
@@ -65,8 +63,7 @@ public class JokeRepo implements AutoCloseable {
                 jokeList.add(Joke.builder()
                         .jokeId(rs.getInt("jokeId"))
                         .creatorId(rs.getInt("creatorId"))
-                        .setup(rs.getString("setup"))
-                        .punchline(rs.getString("punchline"))
+                        .jokeText(rs.getString("jokeText"))
                         .status(rs.getString("status"))
                         .build());
             }
@@ -84,8 +81,7 @@ public class JokeRepo implements AutoCloseable {
                 jokeList.add(Joke.builder()
                         .jokeId(rs.getInt("jokeId"))
                         .creatorId(rs.getInt("creatorId"))
-                        .setup(rs.getString("setup"))
-                        .punchline(rs.getString("punchline"))
+                        .jokeText(rs.getString("jokeText"))
                         .status(rs.getString("status"))
                         .build());
             }
@@ -104,8 +100,7 @@ public class JokeRepo implements AutoCloseable {
                     jokeList.add(Joke.builder()
                             .jokeId(rs.getInt("jokeId"))
                             .creatorId(rs.getInt("creatorId"))
-                            .setup(rs.getString("setup"))
-                            .punchline(rs.getString("punchline"))
+                            .jokeText(rs.getString("jokeText"))
                             .status(rs.getString("status"))
                             .build());
                 }
@@ -124,8 +119,7 @@ public class JokeRepo implements AutoCloseable {
                 jokeList.add(Joke.builder()
                         .jokeId(rs.getInt("jokeId"))
                         .creatorId(rs.getInt("creatorId"))
-                        .setup(rs.getString("setup"))
-                        .punchline(rs.getString("punchline"))
+                        .jokeText(rs.getString("jokeText"))
                         .status(rs.getString("status"))
                         .build());
             }
@@ -135,13 +129,12 @@ public class JokeRepo implements AutoCloseable {
 
     // Update full joke
     public void updateJoke(Joke joke) throws SQLException {
-        String sql = "UPDATE Jokes SET creatorId=?, setup=?, punchline=?, status=? WHERE jokeId=?";
+        String sql = "UPDATE Jokes SET creatorId=?, jokeText=?, status=? WHERE jokeId=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, joke.getCreatorId());
-            ps.setString(2, joke.getSetup());
-            ps.setString(3, joke.getPunchline());
-            ps.setString(4, joke.getStatus());
-            ps.setInt(5, joke.getJokeId());
+            ps.setString(2, joke.getJokeText());
+            ps.setString(3, joke.getStatus());
+            ps.setInt(4, joke.getJokeId());
             ps.executeUpdate();
         }
     }

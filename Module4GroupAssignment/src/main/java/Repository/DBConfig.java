@@ -12,9 +12,12 @@ public class DBConfig {
     //Constructor:
     public DBConfig(){
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); //Loads driver onto the heap.
-            String url = "jdbc:mysql://localhost:3306/joke_server"; //Define where the database is.
-            this.con = DriverManager.getConnection(url, "root", "root"); //Create the actual connection to the database.
+            //Loads driver onto the heap.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            //Define where the database is.
+            String url = "jdbc:mysql://localhost:3306/joke_server";
+            //Create the actual connection to the database.
+            this.con = DriverManager.getConnection(url, "root", "root");
             System.out.println("Connected to database successfully");
 
         }catch (Exception e){
@@ -40,6 +43,5 @@ public class DBConfig {
         if(this.con != null){
             this.con.close();
         }
-
     }
 }
