@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44ce078e-70af-4be9-88e9-743c7af3aa22" name="Changes" comment="Models &amp; Repos are done">
+    <list default="true" id="44ce078e-70af-4be9-88e9-743c7af3aa22" name="Changes" comment="Revised Models &amp; DB configuration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Repository/DBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Repository/DBConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Repository/JokeOfTheDayRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Repository/JokeOfTheDayRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Repository/JokeRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Repository/JokeRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Repository/UserRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Repository/UserRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Repository/VoteRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Repository/VoteRepo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,22 +52,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "magdeli-3",
-    "kotlin-language-version-configured": "true",
-    "onboarding.tips.debug.path": "C:/Users/magde/OneDrive/Documents/GitHub/Group-3/Module4GroupAssignment/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "vcs.Git"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;magdeli-3&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/magde/OneDrive/Documents/GitHub/Group-3/Module4GroupAssignment/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -112,7 +115,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778070432919</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Revised Models &amp; DB configuration">
+      <option name="closed" value="true" />
+      <created>1778073267814</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1778073267815</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -130,7 +141,8 @@
     <MESSAGE value="Packages" />
     <MESSAGE value="New packages" />
     <MESSAGE value="Models &amp; Repos are done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Models &amp; Repos are done" />
+    <MESSAGE value="Revised Models &amp; DB configuration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Revised Models &amp; DB configuration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

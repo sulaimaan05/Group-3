@@ -6,13 +6,15 @@ import java.util.Optional;
 
 public class JokeOfTheDayRepo implements AutoCloseable {
 
+    //Instance variable
     private Connection con;
 
+    //Constructor:
     public JokeOfTheDayRepo(Connection con) {
         this.con = con;
     }
 
-    // Create
+    //Create method:
     public Optional<JokeOfTheDay> createJokeOfTheDay(JokeOfTheDay jod) throws SQLException {
         String sql = "INSERT INTO JokeOfTheDay (jokeId, totalVotes) VALUES (?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -31,7 +33,7 @@ public class JokeOfTheDayRepo implements AutoCloseable {
         return Optional.empty();
     }
 
-    // Read current joke of the day
+    //Read current joke of the day method:
     public Optional<JokeOfTheDay> getJokeOfTheDay() throws SQLException {
         String sql = "SELECT * FROM JokeOfTheDay LIMIT 1";
         try (PreparedStatement ps = con.prepareStatement(sql);
@@ -47,7 +49,7 @@ public class JokeOfTheDayRepo implements AutoCloseable {
         return Optional.empty();
     }
 
-    // Read by ID
+    //Read by ID method:
     public Optional<JokeOfTheDay> getJokeOfTheDayById(int jodId) throws SQLException {
         String sql = "SELECT * FROM JokeOfTheDay WHERE jodId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -65,7 +67,7 @@ public class JokeOfTheDayRepo implements AutoCloseable {
         return Optional.empty();
     }
 
-    // Update totalVotes
+    //Update totalVotes method:
     public void updateTotalVotes(int jodId, int totalVotes) throws SQLException {
         String sql = "UPDATE JokeOfTheDay SET totalVotes = ? WHERE jodId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -75,8 +77,8 @@ public class JokeOfTheDayRepo implements AutoCloseable {
         }
     }
 
-    // Recalculate and refresh — finds highest voted approved joke
-    // and replaces the current joke of the day entry
+    //Method to recalculate and refresh — finds highest voted approved joke
+    //and replaces the current joke of the day entry:
     public Optional<JokeOfTheDay> refreshJokeOfTheDay() throws SQLException {
         String findSql = "SELECT j.jokeId, COUNT(v.voteId) AS voteCount " +
                 "FROM Jokes j LEFT JOIN Votes v ON j.jokeId = v.jokeId " +
@@ -87,16 +89,16 @@ public class JokeOfTheDayRepo implements AutoCloseable {
         try (PreparedStatement ps = con.prepareStatement(findSql);
              ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
-                int topJokeId   = rs.getInt("jokeId");
-                int topVotes    = rs.getInt("voteCount");
+                int topJokeId = rs.getInt("jokeId");
+                int topVotes = rs.getInt("voteCount");
 
-                // Clear the old entry
+                //Clear the old entry:
                 String clearSql = "DELETE FROM JokeOfTheDay";
                 try (PreparedStatement clearPs = con.prepareStatement(clearSql)) {
                     clearPs.executeUpdate();
                 }
 
-                // Insert the new winner
+                //Insert the new winner:
                 JokeOfTheDay jod = JokeOfTheDay.builder()
                         .jodId(0)
                         .jokeId(topJokeId)
@@ -109,7 +111,7 @@ public class JokeOfTheDayRepo implements AutoCloseable {
         return Optional.empty();
     }
 
-    // Delete by ID
+    //Delete by ID method:
     public boolean deleteJokeOfTheDayById(int jodId) throws SQLException {
         String sql = "DELETE FROM JokeOfTheDay WHERE jodId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {

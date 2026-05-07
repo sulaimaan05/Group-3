@@ -14,7 +14,7 @@ public class VoteRepo implements AutoCloseable {
         this.con = con;
     }
 
-    // Create
+    //Create method:
     public Optional<Vote> createVote(Vote vote) throws SQLException {
         String sql = "INSERT INTO Votes (userId, jokeId) VALUES (?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -33,7 +33,7 @@ public class VoteRepo implements AutoCloseable {
         return Optional.empty();
     }
 
-    // Read by ID
+    //Read by ID method:
     public Optional<Vote> getVoteById(int voteId) throws SQLException {
         String sql = "SELECT * FROM Votes WHERE voteId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -51,7 +51,7 @@ public class VoteRepo implements AutoCloseable {
         return Optional.empty();
     }
 
-    // Check if a user has already voted on a joke
+    //Check if a user has already voted on a joke:
     public boolean hasUserVoted(int userId, int jokeId) throws SQLException {
         String sql = "SELECT voteId FROM Votes WHERE userId = ? AND jokeId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -63,7 +63,7 @@ public class VoteRepo implements AutoCloseable {
         }
     }
 
-    // Get all votes for a specific joke
+    //Get all votes for a specific joke:
     public List<Vote> getVotesByJokeId(int jokeId) throws SQLException {
         List<Vote> voteList = new ArrayList<>();
         String sql = "SELECT * FROM Votes WHERE jokeId = ?";
@@ -82,7 +82,7 @@ public class VoteRepo implements AutoCloseable {
         return voteList;
     }
 
-    // Get all votes by a specific user
+    //Get all votes by a specific user:
     public List<Vote> getVotesByUserId(int userId) throws SQLException {
         List<Vote> voteList = new ArrayList<>();
         String sql = "SELECT * FROM Votes WHERE userId = ?";
@@ -101,7 +101,7 @@ public class VoteRepo implements AutoCloseable {
         return voteList;
     }
 
-    // Count total votes for a joke
+    //Count total votes for a joke:
     public int getVoteCountByJokeId(int jokeId) throws SQLException {
         String sql = "SELECT COUNT(*) FROM Votes WHERE jokeId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -115,7 +115,7 @@ public class VoteRepo implements AutoCloseable {
         return 0;
     }
 
-    // Read all votes
+    //Read all votes:
     public List<Vote> readAllVotes() throws SQLException {
         List<Vote> voteList = new ArrayList<>();
         String sql = "SELECT * FROM Votes";
@@ -132,7 +132,7 @@ public class VoteRepo implements AutoCloseable {
         return voteList;
     }
 
-    // Delete by voteId
+    //Delete by voteId:
     public boolean deleteVoteById(int voteId) throws SQLException {
         String sql = "DELETE FROM Votes WHERE voteId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -141,7 +141,7 @@ public class VoteRepo implements AutoCloseable {
         }
     }
 
-    // Delete by userId and jokeId (un-vote)
+    //Delete by userId and jokeId (un-vote):
     public boolean deleteVoteByUserAndJoke(int userId, int jokeId) throws SQLException {
         String sql = "DELETE FROM Votes WHERE userId = ? AND jokeId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {

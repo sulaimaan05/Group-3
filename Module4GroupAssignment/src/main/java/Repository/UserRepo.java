@@ -8,13 +8,15 @@ import java.util.Optional;
 
 public class UserRepo implements AutoCloseable {
 
+    //Instance variable:
     private Connection con;
 
+    //Constructor:
     public UserRepo(Connection con) {
         this.con = con;
     }
 
-    // Create
+    //Create method:
     public Optional<User> createUser(User user) throws SQLException {
         String sql = "INSERT INTO Users (username, email, password, role) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -35,7 +37,7 @@ public class UserRepo implements AutoCloseable {
         return Optional.empty();
     }
 
-    // Read by ID
+    //Read by ID method:
     public Optional<User> getUserById(int userId) throws SQLException {
         String sql = "SELECT * FROM Users WHERE userId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -55,7 +57,7 @@ public class UserRepo implements AutoCloseable {
         return Optional.empty();
     }
 
-    // Read by username
+    //Read by username method:
     public Optional<User> getUserByUsername(String username) throws SQLException {
         String sql = "SELECT * FROM Users WHERE username = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -75,7 +77,7 @@ public class UserRepo implements AutoCloseable {
         return Optional.empty();
     }
 
-    // Read all
+    //Read all method:
     public List<User> readAllUsers() throws SQLException {
         List<User> userList = new ArrayList<>();
         String sql = "SELECT * FROM Users";
@@ -94,7 +96,7 @@ public class UserRepo implements AutoCloseable {
         return userList;
     }
 
-    // Update
+    //Update method:
     public void updateUser(User user) throws SQLException {
         String sql = "UPDATE Users SET username=?, email=?, password=?, role=? WHERE userId=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -107,7 +109,7 @@ public class UserRepo implements AutoCloseable {
         }
     }
 
-    // Delete
+    //Delete method:
     public boolean deleteUserByUsername(String username) throws SQLException {
         String sql = "DELETE FROM Users WHERE username = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {

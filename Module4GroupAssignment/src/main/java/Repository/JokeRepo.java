@@ -8,13 +8,15 @@ import java.util.Optional;
 
 public class JokeRepo implements AutoCloseable {
 
+    //Instance variable:
     private Connection con;
 
+    //Constructor:
     public JokeRepo(Connection con) {
         this.con = con;
     }
 
-    // Create
+    //Create method:
     public Optional<Joke> createJoke(Joke joke) throws SQLException {
         String sql = "INSERT INTO Jokes (creatorId, jokeText, status) VALUES (?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -34,7 +36,7 @@ public class JokeRepo implements AutoCloseable {
         return Optional.empty();
     }
 
-    // Read by ID
+    //Read by ID method:
     public Optional<Joke> getJokeById(int jokeId) throws SQLException {
         String sql = "SELECT * FROM Jokes WHERE jokeId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -53,7 +55,7 @@ public class JokeRepo implements AutoCloseable {
         return Optional.empty();
     }
 
-    // Read all approved jokes (for viewers)
+    //Read all approved jokes (for viewers) method:
     public List<Joke> getApprovedJokes() throws SQLException {
         List<Joke> jokeList = new ArrayList<>();
         String sql = "SELECT * FROM Jokes WHERE status = 'approved'";
@@ -71,7 +73,7 @@ public class JokeRepo implements AutoCloseable {
         return jokeList;
     }
 
-    // Read all pending jokes (for moderators)
+    //Read all pending jokes (for moderators) method:
     public List<Joke> getPendingJokes() throws SQLException {
         List<Joke> jokeList = new ArrayList<>();
         String sql = "SELECT * FROM Jokes WHERE status = 'pending'";
@@ -89,7 +91,7 @@ public class JokeRepo implements AutoCloseable {
         return jokeList;
     }
 
-    // Read all jokes by a specific creator
+    //Read all jokes by a specific creator method:
     public List<Joke> getJokesByCreator(int creatorId) throws SQLException {
         List<Joke> jokeList = new ArrayList<>();
         String sql = "SELECT * FROM Jokes WHERE creatorId = ?";
@@ -109,7 +111,7 @@ public class JokeRepo implements AutoCloseable {
         return jokeList;
     }
 
-    // Read all jokes
+    //Read all jokes method:
     public List<Joke> readAllJokes() throws SQLException {
         List<Joke> jokeList = new ArrayList<>();
         String sql = "SELECT * FROM Jokes";
@@ -127,7 +129,7 @@ public class JokeRepo implements AutoCloseable {
         return jokeList;
     }
 
-    // Update full joke
+    //Update full joke method:
     public void updateJoke(Joke joke) throws SQLException {
         String sql = "UPDATE Jokes SET creatorId=?, jokeText=?, status=? WHERE jokeId=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -139,7 +141,7 @@ public class JokeRepo implements AutoCloseable {
         }
     }
 
-    // Update status only (used by moderators to approve/reject)
+    //Update status only (used by moderators to approve/reject) method:
     public boolean updateJokeStatus(int jokeId, String status) throws SQLException {
         String sql = "UPDATE Jokes SET status = ? WHERE jokeId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -149,7 +151,7 @@ public class JokeRepo implements AutoCloseable {
         }
     }
 
-    // Delete
+    //Delete method:
     public boolean deleteJokeById(int jokeId) throws SQLException {
         String sql = "DELETE FROM Jokes WHERE jokeId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {

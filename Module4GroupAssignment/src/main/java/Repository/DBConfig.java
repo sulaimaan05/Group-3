@@ -10,7 +10,7 @@ public class DBConfig {
     private Connection con;
 
     //Constructor:
-    public DBConfig(){
+    private DBConfig(){
         try {
             //Loads driver onto the heap.
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -31,7 +31,7 @@ public class DBConfig {
     }
 
     //Global access point:
-    public static DBConfig getInstance(){
+    public static synchronized DBConfig getInstance(){
         if(instance == null){
             instance = new DBConfig();
         }
