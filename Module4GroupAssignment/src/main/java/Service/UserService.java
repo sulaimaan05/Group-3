@@ -1,74 +1,120 @@
-package service;
+package Service;
 
 import Model.User;
 import Repository.UserRepo;
 
+import java.util.List;
 import java.util.Optional;
+
 
 public class UserService {
 
-    private UserRepo userRepository;
+    private final UserRepo userRepo;
 
-    public UserService(UserRepo userRepository) {
-        this.userRepository = userRepository;
+    // Roles ordered by privilege level (ascending)
+    private static final List<String> ROLE_HIERARCHY = List.of(
+            "user",
+            "joke_creator",
+            "moderator_pending",
+            "moderator"
+    );
+
+    public UserService(UserRepo userRepo) {
+        this.userRepo = userRepo;
     }
 
-    // 🔍 Get user by ID
-    public User getUserById(int userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public Optional<User> getUserById(int userId) {
+        return userRepo.getUserById(userId);
     }
 
-    // ✏️ Update email
-    public void updateEmail(int userId, String newEmail) {
-        if (newEmail == null || newEmail.isEmpty()) {
-            throw new IllegalArgumentException("Email cannot be empty");
-        }
-
-        // Optional: check if email already exists
-        Optional<User> existing = userRepository.findByEmail(newEmail);
-        if (existing.isPresent()) {
-            throw new RuntimeException("Email already in use");
-        }
-
-        userRepository.updateEmail(userId, newEmail);
+    public Optional<User> getUserByUsername(String username) {
+        return userRepo.getUserByUsername(username);
     }
 
-    // 🔐 Update password
-    public void updatePassword(int userId, String newPassword) {
-        if (newPassword == null || newPassword.length() < 6) {
-            throw new IllegalArgumentException("Password must be at least 6 characters");
-        }
-
-        // TODO: hash password before saving
-        userRepository.updatePassword(userId, newPassword);
+    public List<User> getAllUsers() {
+        return userRepo.readAllUsers();
     }
 
-    // 🔄 Request role change (upgrade/downgrade)
-    public void requestRoleChange(int userId, String newRole) {
-        User user = getUserById(userId);
+    public boolean updateEmail(int userId, String newEmail) {
+        if (newEmail == null || newEmail.isBlank()) return false;
 
-        if (user.getRole().equals(newRole)) {
-            throw new IllegalArgumentException("User already has this role");
-        }
+        Optional<User> userOpt = userRepo.getUserById(userId);
+        if (userOpt.isEmpty()) return false;
 
-        // Business rule example:
-        // Moderator role might require approval (optional extension)
-        if (newRole.equalsIgnoreCase("MODERATOR")) {
-            // Could store as pending request instead
-            userRepository.updateRole(userId, "PENDING_MODERATOR");
-        } else {
-            userRepository.updateRole(userId, newRole.toUpperCase());
-        }
+        User user = userOpt.get();
+        user.setEmail(newEmail);
+        userRepo.updateUser(user);
+        return true;
     }
 
-    // 📋 Get user by username (useful for profile views)
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public boolean updatePassword(int userId, String newPassword) {
+        if (newPassword == null || newPassword.isBlank()) return false;
+
+        Optional<User> userOpt = userRepo.getUserById(userId);
+        if (userOpt.isEmpty()) return false;
+
+        User user = userOpt.get();
+        user.setPassword(newPassword);
+        userRepo.updateUser(user);
+        return true;
     }
 
-    // ❌ Delete account (optional feature)
-    public void deleteUser(int userId) {
-        userRepository.delete(userId);
+    public boolean updateUsername(int userId, String newUsername) {
+        if (newUsername == null || newUsername.isBlank()) return false;
+
+        // Ensure new username is not already taken
+        Optional<User> conflict = userRepo.getUserByUsername(newUsername);
+        if (conflict.isPresent()) return false;
+
+        Optional<User> userOpt = userRepo.getUserById(userId);
+        if (userOpt.isEmpty()) return false;
+
+        User user = userOpt.get();
+        user.setUsername(newUsername);
+        userRepo.updateUser(user);
+        return true;
+    }
+
+    public boolean upgradeRole(int userId, String newRole) {
+        Optional<User> userOpt = userRepo.getUserById(userId);
+        if (userOpt.isEmpty()) return false;
+
+        User user = userOpt.get();
+        String currentRole = user.getRole();
+
+        int currentIndex = ROLE_HIERARCHY.indexOf(currentRole);
+        int targetIndex  = ROLE_HIERARCHY.indexOf(newRole);
+
+        // Must be a valid role and must be a promotion, not a lateral/demotion
+        if (targetIndex <= currentIndex) return false;
+
+        // Only allow one step at a time
+        if (targetIndex - currentIndex != 1) return false;
+
+        user.setRole(newRole);
+        userRepo.updateUser(user);
+        return true;
+    }
+
+    public boolean downgradeRole(int userId, String newRole) {
+        Optional<User> userOpt = userRepo.getUserById(userId);
+        if (userOpt.isEmpty()) return false;
+
+        User user = userOpt.get();
+        String currentRole = user.getRole();
+
+        int currentIndex = ROLE_HIERARCHY.indexOf(currentRole);
+        int targetIndex  = ROLE_HIERARCHY.indexOf(newRole);
+
+        // Must be a valid role and must be a demotion
+        if (targetIndex >= currentIndex || targetIndex < 0) return false;
+
+        user.setRole(newRole);
+        userRepo.updateUser(user);
+        return true;
+    }
+
+    public boolean deleteAccount(String username) {
+        return userRepo.deleteUserByUsername(username);
     }
 }
