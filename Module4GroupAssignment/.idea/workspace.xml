@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44ce078e-70af-4be9-88e9-743c7af3aa22" name="Changes" comment="Packages" />
+    <list default="true" id="44ce078e-70af-4be9-88e9-743c7af3aa22" name="Changes" comment="Final models &amp; repositories">
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/CreatorScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/LoginScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/ModeratorScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/RegisterScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/ViewerScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/Class.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,23 +29,23 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="magdeli-2" />
+        <entry key="$PROJECT_DIR$/.." value="test/backup-branch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Magdeli-Potgieter"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Magdeli-Potgieter&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Nicholas-Henwood/Group-3.git",
-    "accountId": "8b29a106-21cf-4cda-b7fb-be1c2b11aa25"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Nicholas-Henwood/Group-3.git&quot;,
+    &quot;accountId&quot;: &quot;8b29a106-21cf-4cda-b7fb-be1c2b11aa25&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -47,18 +56,19 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.LoginScreen.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "magdeli-3",
     "kotlin-language-version-configured": "true",
     "onboarding.tips.debug.path": "C:/Users/magde/OneDrive/Documents/GitHub/Group-3/Module4GroupAssignment/src/main/java/org/example/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "vcs.Git"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -84,7 +94,47 @@
       <option name="project" value="LOCAL" />
       <updated>1778058450797</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="New packages">
+      <option name="closed" value="true" />
+      <created>1778059382377</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1778059382377</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Models &amp; Repos are done">
+      <option name="closed" value="true" />
+      <created>1778070401781</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1778070401781</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Models &amp; Repos are done">
+      <option name="closed" value="true" />
+      <created>1778070432919</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1778070432919</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Revised Models &amp; DB configuration">
+      <option name="closed" value="true" />
+      <created>1778073267814</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1778073267815</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Final models &amp; repositories">
+      <option name="closed" value="true" />
+      <created>1778137628555</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1778137628555</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -100,7 +150,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Packages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Packages" />
+    <MESSAGE value="New packages" />
+    <MESSAGE value="Models &amp; Repos are done" />
+    <MESSAGE value="Revised Models &amp; DB configuration" />
+    <MESSAGE value="Final models &amp; repositories" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final models &amp; repositories" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -112,5 +166,9 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
