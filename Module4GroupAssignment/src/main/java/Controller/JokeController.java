@@ -4,6 +4,7 @@ import Controller.ControllerResponse;
 import Model.Joke;
 import Service.JokeService;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,7 +68,7 @@ public class JokeController {
     }
 
     public ControllerResponse<Void> editJoke(int requesterId, int jokeId,
-                                             String newSetup, String newPunchline, String newCategory) {
+                                             String newSetup, String newPunchline, String newCategory) throws SQLException {
         boolean updated = jokeService.editJoke(requesterId, jokeId, newSetup, newPunchline, newCategory);
         return updated
                 ? ControllerResponse.success("Joke updated successfully.")

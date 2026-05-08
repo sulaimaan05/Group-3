@@ -77,7 +77,7 @@ public class JokeService {
     }
 
 
-    public boolean editJoke(int requesterId, int jokeId, String newSetup, String newPunchline, String newCategory) {
+    public boolean editJoke(int requesterId, int jokeId, String newSetup, String newPunchline, String newCategory) throws SQLException {
         Optional<Joke> jokeOpt = jokeRepo.getJokeById(jokeId);
         if (jokeOpt.isEmpty()) return false;
 

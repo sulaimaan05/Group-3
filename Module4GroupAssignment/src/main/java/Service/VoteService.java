@@ -4,6 +4,7 @@ import Model.Vote;
 import Repository.VoteRepo;
 import Repository.JokeRepo;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,7 @@ public class VoteService {
         this.jokeRepo = jokeRepo;
     }
 
-    public Optional<Vote> castVote(int userId, int jokeId, int voteValue) {
+    public Optional<Vote> castVote(int userId, int jokeId, int voteValue) throws SQLException {
         // Validate vote value
         if (voteValue != 1 && voteValue != -1) return Optional.empty();
 
@@ -38,28 +39,28 @@ public class VoteService {
         return voteRepo.createVote(vote);
     }
 
-    public boolean retractVote(int userId, int jokeId) {
+    public boolean retractVote(int userId, int jokeId) throws SQLException {
         if (!voteRepo.hasUserVoted(userId, jokeId)) return false;
         return voteRepo.deleteVoteByUserAndJoke(userId, jokeId);
     }
 
-    public int getVoteCountForJoke(int jokeId) {
+    public int getVoteCountForJoke(int jokeId) throws SQLException {
         return voteRepo.getVoteCountByJokeId(jokeId);
     }
 
-    public List<Vote> getVotesForJoke(int jokeId) {
+    public List<Vote> getVotesForJoke(int jokeId) throws SQLException {
         return voteRepo.getVotesByJokeId(jokeId);
     }
 
-    public List<Vote> getVotesByUser(int userId) {
+    public List<Vote> getVotesByUser(int userId) throws SQLException {
         return voteRepo.getVotesByUserId(userId);
     }
 
-    public boolean hasUserVoted(int userId, int jokeId) {
+    public boolean hasUserVoted(int userId, int jokeId) throws SQLException {
         return voteRepo.hasUserVoted(userId, jokeId);
     }
 
-    public boolean deleteVoteById(int voteId) {
+    public boolean deleteVoteById(int voteId) throws SQLException {
         return voteRepo.deleteVoteById(voteId);
     }
 }

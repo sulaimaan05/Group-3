@@ -5,6 +5,7 @@ import Model.Joke;
 import Model.User;
 import Service.ModerationService;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ public class ModerationController {
         this.moderationService = moderationService;
     }
 
-    public ControllerResponse<List<Joke>> getPendingJokes(String moderatorRole) {
+    public ControllerResponse<List<Joke>> getPendingJokes(String moderatorRole) throws SQLException {
         if (!"moderator".equals(moderatorRole))
             return ControllerResponse.failure("Access denied. Moderator role required.");
 
@@ -27,7 +28,7 @@ public class ModerationController {
         return ControllerResponse.success("Retrieved " + pending.size() + " pending joke(s).", pending);
     }
 
-    public ControllerResponse<Void> approveJoke(String moderatorRole, int jokeId) {
+    public ControllerResponse<Void> approveJoke(String moderatorRole, int jokeId) throws SQLException {
         if (!"moderator".equals(moderatorRole))
             return ControllerResponse.failure("Access denied. Moderator role required.");
 
@@ -37,7 +38,7 @@ public class ModerationController {
                 : ControllerResponse.failure("Failed to approve joke. It may not exist or is not in a pending state.");
     }
 
-    public ControllerResponse<Void> rejectJoke(String moderatorRole, int jokeId) {
+    public ControllerResponse<Void> rejectJoke(String moderatorRole, int jokeId) throws SQLException {
         if (!"moderator".equals(moderatorRole))
             return ControllerResponse.failure("Access denied. Moderator role required.");
 
@@ -47,7 +48,7 @@ public class ModerationController {
                 : ControllerResponse.failure("Failed to reject joke. It may not exist or is not in a pending state.");
     }
 
-    public ControllerResponse<List<User>> getPendingModeratorRequests(String moderatorRole) {
+    public ControllerResponse<List<User>> getPendingModeratorRequests(String moderatorRole) throws SQLException {
         if (!"moderator".equals(moderatorRole))
             return ControllerResponse.failure("Access denied. Moderator role required.");
 
@@ -58,7 +59,7 @@ public class ModerationController {
         return ControllerResponse.success("Retrieved " + pending.size() + " pending moderator request(s).", pending);
     }
 
-    public ControllerResponse<Void> approveModeratorRequest(String moderatorRole, int targetUserId) {
+    public ControllerResponse<Void> approveModeratorRequest(String moderatorRole, int targetUserId) throws SQLException {
         if (!"moderator".equals(moderatorRole))
             return ControllerResponse.failure("Access denied. Moderator role required.");
 
@@ -68,7 +69,7 @@ public class ModerationController {
                 : ControllerResponse.failure("Failed to approve request. User may not exist or is not pending moderator status.");
     }
 
-    public ControllerResponse<Void> denyModeratorRequest(String moderatorRole, int targetUserId) {
+    public ControllerResponse<Void> denyModeratorRequest(String moderatorRole, int targetUserId) throws SQLException {
         if (!"moderator".equals(moderatorRole))
             return ControllerResponse.failure("Access denied. Moderator role required.");
 

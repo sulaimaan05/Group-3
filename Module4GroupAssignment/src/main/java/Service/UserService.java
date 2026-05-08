@@ -3,6 +3,7 @@ package Service;
 import Model.User;
 import Repository.UserRepo;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,19 +24,19 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public Optional<User> getUserById(int userId) {
+    public Optional<User> getUserById(int userId) throws SQLException {
         return userRepo.getUserById(userId);
     }
 
-    public Optional<User> getUserByUsername(String username) {
+    public Optional<User> getUserByUsername(String username) throws SQLException {
         return userRepo.getUserByUsername(username);
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws SQLException {
         return userRepo.readAllUsers();
     }
 
-    public boolean updateEmail(int userId, String newEmail) {
+    public boolean updateEmail(int userId, String newEmail) throws SQLException {
         if (newEmail == null || newEmail.isBlank()) return false;
 
         Optional<User> userOpt = userRepo.getUserById(userId);
@@ -47,7 +48,7 @@ public class UserService {
         return true;
     }
 
-    public boolean updatePassword(int userId, String newPassword) {
+    public boolean updatePassword(int userId, String newPassword) throws SQLException {
         if (newPassword == null || newPassword.isBlank()) return false;
 
         Optional<User> userOpt = userRepo.getUserById(userId);
@@ -59,7 +60,7 @@ public class UserService {
         return true;
     }
 
-    public boolean updateUsername(int userId, String newUsername) {
+    public boolean updateUsername(int userId, String newUsername) throws SQLException {
         if (newUsername == null || newUsername.isBlank()) return false;
 
         // Ensure new username is not already taken
@@ -75,7 +76,7 @@ public class UserService {
         return true;
     }
 
-    public boolean upgradeRole(int userId, String newRole) {
+    public boolean upgradeRole(int userId, String newRole) throws SQLException {
         Optional<User> userOpt = userRepo.getUserById(userId);
         if (userOpt.isEmpty()) return false;
 
@@ -96,7 +97,7 @@ public class UserService {
         return true;
     }
 
-    public boolean downgradeRole(int userId, String newRole) {
+    public boolean downgradeRole(int userId, String newRole) throws SQLException {
         Optional<User> userOpt = userRepo.getUserById(userId);
         if (userOpt.isEmpty()) return false;
 
@@ -114,7 +115,7 @@ public class UserService {
         return true;
     }
 
-    public boolean deleteAccount(String username) {
+    public boolean deleteAccount(String username) throws SQLException {
         return userRepo.deleteUserByUsername(username);
     }
 }

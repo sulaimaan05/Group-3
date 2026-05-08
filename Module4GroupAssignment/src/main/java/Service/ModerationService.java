@@ -5,6 +5,7 @@ import Model.User;
 import Repository.JokeRepo;
 import Repository.UserRepo;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,12 +20,12 @@ public class ModerationService {
         this.userRepo = userRepo;
     }
 
-    public List<Joke> getPendingJokes(String moderatorRole) {
+    public List<Joke> getPendingJokes(String moderatorRole) throws SQLException {
         if (!isModerator(moderatorRole)) return List.of();
         return jokeRepo.getPendingJokes();
     }
 
-    public boolean approveJoke(String moderatorRole, int jokeId) {
+    public boolean approveJoke(String moderatorRole, int jokeId) throws SQLException {
         if (!isModerator(moderatorRole)) return false;
 
         Optional<Joke> jokeOpt = jokeRepo.getJokeById(jokeId);
@@ -36,7 +37,7 @@ public class ModerationService {
         return jokeRepo.updateJokeStatus(jokeId, "approved");
     }
 
-    public boolean rejectJoke(String moderatorRole, int jokeId) {
+    public boolean rejectJoke(String moderatorRole, int jokeId) throws SQLException {
         if (!isModerator(moderatorRole)) return false;
 
         Optional<Joke> jokeOpt = jokeRepo.getJokeById(jokeId);
@@ -48,7 +49,7 @@ public class ModerationService {
         return jokeRepo.updateJokeStatus(jokeId, "rejected");
     }
 
-    public List<User> getPendingModeratorRequests(String moderatorRole) {
+    public List<User> getPendingModeratorRequests(String moderatorRole) throws SQLException {
         if (!isModerator(moderatorRole)) return List.of();
 
         return userRepo.readAllUsers().stream()
@@ -56,7 +57,7 @@ public class ModerationService {
                 .toList();
     }
 
-    public boolean approveModeratorRequest(String moderatorRole, int targetUserId) {
+    public boolean approveModeratorRequest(String moderatorRole, int targetUserId) throws SQLException {
         if (!isModerator(moderatorRole)) return false;
 
         Optional<User> userOpt = userRepo.getUserById(targetUserId);
@@ -70,7 +71,7 @@ public class ModerationService {
         return true;
     }
 
-    public boolean denyModeratorRequest(String moderatorRole, int targetUserId) {
+    public boolean denyModeratorRequest(String moderatorRole, int targetUserId) throws SQLException {
         if (!isModerator(moderatorRole)) return false;
 
         Optional<User> userOpt = userRepo.getUserById(targetUserId);
